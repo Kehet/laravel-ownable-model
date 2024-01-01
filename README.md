@@ -15,13 +15,6 @@ You can install the package via composer:
 composer require kehet/laravel-ownable-model
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-ownable-model-migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 
 ```bash
@@ -32,20 +25,66 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'owner' => \App\Models\User::class,
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-ownable-model-views"
 ```
 
 ## Usage
 
+### Prepare owner modal
+
 ```php
-$laravelOwnableModel = new Kehet\LaravelOwnableModel();
-echo $laravelOwnableModel->echoPhrase('Hello, Kehet!');
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Kehet\LaravelOwnableModel\Contracts\OwnerContract;
+
+class User extends Authenticatable implements OwnerContract
+{
+    // ...
+}
+```
+
+### Prepare ownable modal
+
+```php
+use Illuminate\Database\Eloquent\Model;
+use Kehet\LaravelOwnableModel\Contracts\OwnableContract;
+use Kehet\LaravelOwnableModel\Traits\HasOwner;
+
+class Comment extends Model implements OwnableContract
+{
+    use HasOwner;
+    
+    // ...
+}
+```
+
+and add following migration
+
+```php
+Schema::table('comments', function (Blueprint $table) {
+    $table->integer('owned_by_id')->unsigned();
+    $table->index('owned_by_id');
+});
+```
+
+### Available methods for ownable modal
+
+#### Regular Eloquent relation is available
+```php
+$comment->owner()
+$comment->owner
+```
+
+#### Check if (not) owned by user
+```php
+$comment->isOwnedBy($user)
+$comment->isNotOwnedBy($user)
+```
+
+#### Query modals (not) owned by user
+```php
+Comment::whereOwnedBy($user);
+Comment::whereNotOwnedBy($user);
 ```
 
 ## Testing

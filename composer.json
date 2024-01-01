@@ -34,14 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Kehet\\LaravelOwnableModel\\": "src/",
-            "Kehet\\LaravelOwnableModel\\Database\\Factories\\": "tests/database/factories/"
+            "Kehet\\LaravelOwnableModel\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Kehet\\LaravelOwnableModel\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Kehet\\LaravelOwnableModel\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -51,11 +49,6 @@
         "build": [
             "@composer run prepare",
             "@php vendor/bin/testbench workbench:build --ansi"
-        ],
-        "start": [
-            "Composer\\Config::disableProcessTimeout",
-            "@composer run build",
-            "@php vendor/bin/testbench serve"
         ],
         "analyse": "vendor/bin/phpstan analyse",
         "test": "XDEBUG_MODE=coverage vendor/bin/pest",
