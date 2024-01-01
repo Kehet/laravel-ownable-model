@@ -35,7 +35,7 @@
     "autoload": {
         "psr-4": {
             "Kehet\\LaravelOwnableModel\\": "src/",
-            "Kehet\\LaravelOwnableModel\\Database\\Factories\\": "database/factories/"
+            "Kehet\\LaravelOwnableModel\\Database\\Factories\\": "tests/database/factories/"
         }
     },
     "autoload-dev": {
@@ -58,8 +58,8 @@
             "@php vendor/bin/testbench serve"
         ],
         "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
+        "test": "XDEBUG_MODE=coverage vendor/bin/pest",
+        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"
     },
     "config": {
@@ -73,10 +73,7 @@
         "laravel": {
             "providers": [
                 "Kehet\\LaravelOwnableModel\\LaravelOwnableModelServiceProvider"
-            ],
-            "aliases": {
-                "LaravelOwnableModel": "Kehet\\LaravelOwnableModel\\Facades\\LaravelOwnableModel"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

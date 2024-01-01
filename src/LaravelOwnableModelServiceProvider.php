@@ -12,14 +12,9 @@ class LaravelOwnableModelServiceProvider extends PackageServiceProvider
     {
         /*
          * This class is a Package Service Provider
-         *
+         *com
          * More info: https://github.com/spatie/laravel-package-tools
          */
-        $package
-            ->name('laravel-ownable-model')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-ownable-model_table')
-            ->hasCommand(LaravelOwnableModelCommand::class);
+        $package->name('laravel-ownable-model');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-// config for Kehet/LaravelOwnableModel
 return [
+
+    'owner' => \App\Models\User::class,
 
 ];

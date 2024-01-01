@@ -2,8 +2,10 @@
 
 namespace Kehet\LaravelOwnableModel\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Kehet\LaravelOwnableModel\LaravelOwnableModelServiceProvider;
+use Kehet\LaravelOwnableModel\Tests\Models\User;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -12,25 +14,37 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Kehet\\LaravelOwnableModel\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        $this->setUpDatabase();
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             LaravelOwnableModelServiceProvider::class,
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
-        config()->set('database.default', 'testing');
+        config()->set('auth.providers.users.model', User::class);
+        config()->set('ownable-model.owner', User::class);
+    }
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_laravel-ownable-model_table.php.stub';
-        $migration->up();
-        */
+    public function setUpDatabase(): void
+    {
+        Schema::dropAllTables();
+
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->integer('owned_by_id')->unsigned();
+            $table->string('body');
+            $table->timestamps();
+        });
     }
 }
