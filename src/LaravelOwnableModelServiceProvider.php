@@ -2,9 +2,9 @@
 
 namespace Kehet\LaravelOwnableModel;
 
+use Kehet\LaravelOwnableModel\Commands\LaravelOwnableModelCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Kehet\LaravelOwnableModel\Commands\LaravelOwnableModelCommand;
 
 class LaravelOwnableModelServiceProvider extends PackageServiceProvider
 {

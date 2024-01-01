@@ -3,8 +3,8 @@
 namespace Kehet\LaravelOwnableModel\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Kehet\LaravelOwnableModel\LaravelOwnableModelServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
