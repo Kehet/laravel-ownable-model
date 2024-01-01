@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Kehet\LaravelOwnableModel\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelOwnableModelCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-ownable-model';
 
     public $description = 'My command';
 
